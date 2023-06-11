@@ -1,9 +1,7 @@
-
 <form [formGroup]="myform" (ngSubmit)="submitForm()">
   <div>
     <label for="name">Name:</label>
     <input type="text" id="name" class="name" formControlName="userName">
-    <!-- <span *ngIf="userName && userName.invalid && userName.touched && userName.dirty">Invalid Name</span> -->
     <span *ngIf="userName?.invalid && (userName?.touched || submitted)">
       <span *ngIf="userName?.errors?.['required']">Name is required.</span>
     </span>
@@ -12,7 +10,6 @@
   <div>
     <label for="email">Email:</label>
     <input type="email" id="email" class="email" formControlName="emailId">
-    <!-- <span *ngIf="emailId && emailId.invalid && emailId.touched">Invalid Email</span> -->
     <span *ngIf="emailId?.invalid && (emailId?.touched || submitted)">
       <span *ngIf="emailId?.errors?.['required']">Email is required.</span>
       <span *ngIf="emailId?.errors?.['email']">Invalid email format.</span>
@@ -22,7 +19,6 @@
   <div>
     <label for="message">Message:</label>
     <textarea id="message" class="message" formControlName="msgText"></textarea>
-    <!-- <span *ngIf="msgText && msgText.invalid && msgText.touched">Invalid:(Min 50 Words Needed)</span> -->
     <span *ngIf="msgText?.invalid && (msgText?.touched || submitted)">
       <span *ngIf="msgText?.errors?.['required']">Message is required.</span>
       <span *ngIf="msgText?.errors?.['invalidMessage']">
@@ -37,8 +33,17 @@
     <span *ngIf="mobNo?.invalid && (mobNo?.touched || submitted)">
       <span *ngIf="mobNo?.errors?.['required']">Phone number is required.</span>
       <span *ngIf="mobNo?.errors?.['pattern']">Provide a valid mobile number.</span>
-      </span>
+    </span>
   </div>
 
-  <button type="submit">Submit</button>
+  <div>
+    <label for="fileUpload">File:</label>
+    <input type="file" id="fileUpload" name="fileUpload" formControlName="fileUpload">
+    <span *ngIf="fileUpload?.invalid && (fileUpload?.touched || submitted)">
+      <span *ngIf="fileUpload?.errors?.['required']">File is required.</span>
+      <span *ngIf="fileUpload?.errors?.['pattern']">Provide a valid mobile number.</span>
+    </span>
+  </div>
+
+  <button type="submit" accept=".pdf,.jpeg" >Submit</button>
 </form>

@@ -1,7 +1,6 @@
-
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators, ValidationErrors } from '@angular/forms';
-
+import { FormControl, FormGroup, Validators,ValidationErrors } from '@angular/forms';
+ 
 function vMsg(control: FormControl): ValidationErrors | null {
   const value = control.value;
   if (value && value.trim().toLowerCase() !== 'nil' && value.split(' ').length < 50) {
@@ -20,27 +19,24 @@ export class FormPageComponent {
   submitted = false;
   
   myform = new FormGroup({
-    userName: new FormControl('', [Validators.required, Validators.minLength(30)]),
+    userName: new FormControl('', [Validators.required]),
     emailId: new FormControl('', [Validators.required, Validators.email]),
-    msgText: new FormControl('', [Validators.required, vMsg,]),
-    mobNo: new FormControl('', [Validators.required,Validators.pattern('[- +()0-9 ]{14}')])
+    msgText: new FormControl('', [Validators.required,vMsg]),
+    mobNo: new FormControl('', [Validators.required, Validators.pattern('[- +()0-9 ]{14}')])
   });
 
   submitForm() {
-    this.submitted = true
-    if (this.myform.invalid) {
-      Object.keys(this.myform.controls).forEach((key) => {
-        const control = this.myform.get(key);
-        if (control) {
-          control.markAsTouched();
-        }
-      });
-      
-    }
-    else{
+    this.submitted = true;
+    
+    if (this.myform.valid) {
+      console.log('Form submitted successfully.');
       this.myform.reset();
       this.submitted = false;
-      
+    } else {
+      Object.values(this.myform.controls).forEach((control) => {
+          control.markAsTouched();
+          console.log("click");
+      });
     }
   }
 
@@ -58,5 +54,8 @@ export class FormPageComponent {
 
   get mobNo() {
     return this.myform.get('mobNo');
+  }
+  get fileUpload() {
+    return this.myform.get('fileUpload');
   }
 }
