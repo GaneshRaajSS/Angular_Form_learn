@@ -1,5 +1,6 @@
+
 <form [formGroup]="myform" (ngSubmit)="submitForm()">
-  <div>
+  <div >
     <label for="name">Name:</label>
     <input type="text" id="name" class="name" formControlName="userName">
     <span *ngIf="userName?.invalid && (userName?.touched || submitted)">
@@ -32,18 +33,21 @@
     <input type="tel" id="phNo" name="phNo" formControlName="mobNo">
     <span *ngIf="mobNo?.invalid && (mobNo?.touched || submitted)">
       <span *ngIf="mobNo?.errors?.['required']">Phone number is required.</span>
-      <span *ngIf="mobNo?.errors?.['pattern']">Provide a valid mobile number.</span>
+      <span *ngIf="mobNo?.errors?.['pattern']">Provide a valid mobile number following with the country code.</span>
     </span>
   </div>
 
-  <div>
+  <!-- <div>
     <label for="fileUpload">File:</label>
     <input type="file" id="fileUpload" name="fileUpload" formControlName="fileUpload">
     <span *ngIf="fileUpload?.invalid && (fileUpload?.touched || submitted)">
       <span *ngIf="fileUpload?.errors?.['required']">File is required.</span>
-      <span *ngIf="fileUpload?.errors?.['pattern']">Provide a valid mobile number.</span>
     </span>
-  </div>
+  </div> -->
 
   <button type="submit" accept=".pdf,.jpeg" >Submit</button>
+
 </form>
+
+<div class="userDisplay" style="text-align: center;" [innerHTML]="preview"></div>
+

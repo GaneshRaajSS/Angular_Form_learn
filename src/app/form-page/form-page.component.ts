@@ -22,14 +22,23 @@ export class FormPageComponent {
     userName: new FormControl('', [Validators.required]),
     emailId: new FormControl('', [Validators.required, Validators.email]),
     msgText: new FormControl('', [Validators.required,vMsg]),
-    mobNo: new FormControl('', [Validators.required, Validators.pattern('[- +()0-9 ]{14}')])
+    mobNo: new FormControl('', [Validators.required, Validators.pattern('^[+]?[0-9 ]*$')]),
+    // fileUpload: new FormControl('', [Validators.required])
   });
+
+  preview:String = " ";
 
   submitForm() {
     this.submitted = true;
-    
+
     if (this.myform.valid) {
       console.log('Form submitted successfully.');
+    
+      this.preview = `<strong>Name:</strong> ${this.myform.get('userName')?.value}<br>`+
+      `<strong>Email:</strong> ${this.myform.get('emailId')?.value}<br>`+
+      `<strong>Message:</strong> ${this.myform.get('msgText')?.value}<br>`+
+      `<strong>Phone Number:</strong> ${this.myform.get('mobNo')?.value}<br>`;
+
       this.myform.reset();
       this.submitted = false;
     } else {
@@ -38,6 +47,9 @@ export class FormPageComponent {
           console.log("click");
       });
     }
+
+    
+
   }
 
   get userName() {
@@ -55,7 +67,7 @@ export class FormPageComponent {
   get mobNo() {
     return this.myform.get('mobNo');
   }
-  get fileUpload() {
-    return this.myform.get('fileUpload');
-  }
+  // get fileUpload() {
+  //   return this.myform.get('fileUpload');
+  // }
 }
